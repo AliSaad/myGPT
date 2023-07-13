@@ -6,7 +6,7 @@ from langchain.embeddings import HuggingFaceInstructEmbeddings
 from langchain.vectorstores import FAISS
 from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationalRetrievalChain
-from langchain.embeddings import OpenAIEmbeddings
+
 
 def get_pdf_text(pdf_docs):
     text = ''
@@ -27,9 +27,14 @@ def get_text_chunks(raw_text):
     return text_chunks
 
 def get_vector_store(text_chunks):
-    embeddings = OpenAIEmbeddings(client='gpt3')
+    embeddings = HuggingFaceInstructEmbeddings(
+        model_name='hkunlp/instructor-xl')
     vectorstore = FAISS.from_texts(text_chunks, embeddings)
     return vectorstore
+
+def get_conversation_chain(vector_store):
+    memory = ConversationBufferMemory(memory_key='chat_history', return_messages=True)
+  
 
 
 def main():
@@ -51,5 +56,6 @@ def main():
                 # create a vector store
                 vector_store = get_vector_store(text_chunks)
                 # crate conversation chain
+                conversation = get_conversation_chain(vector_store)
 if __name__ == '__main__':
     main()
