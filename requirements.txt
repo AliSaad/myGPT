@@ -1,4 +1,4 @@
-langchain==0.0.184
+langchain==0.0.244
 PyPDF2==3.0.1
 pypdf==3.13.0
 python-dotenv==1.0.0
@@ -11,5 +11,5 @@ tiktoken==0.4.0
 # huggingface-hub==0.14.1
 
 # uncomment to use instructor embeddings
-# InstructorEmbedding==1.0.1
+InstructorEmbedding==1.0.1
 # sentence-transformers==2.2.2
